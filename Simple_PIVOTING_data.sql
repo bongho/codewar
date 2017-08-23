@@ -26,3 +26,15 @@ FROM CROSSTAB(
                ORDER BY 1,2'
                ,$$VALUES ('good'::text), ('ok'::text),('bad'::text)$$)
 AS ct (NAME text, good int, ok int, bad int); 
+
+select *
+from crosstab(
+  'select p.name, d.detail, count(1)::int as value
+  from products p
+    inner join details d
+      on p.id = d.product_id
+  group by 1, 2
+  order by 1, 2',
+  $$values ('good'), ('ok'), ('bad')$$)
+  as (name text, good int, ok int, bad int)
+order by name
