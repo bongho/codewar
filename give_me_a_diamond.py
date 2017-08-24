@@ -9,12 +9,6 @@ def diamond(n):
         return "\n".join(diamond_lst) + "\n"
         
 def diamond(n):
-    if n > 0 and n % 2 == 1:
-        diamond = ""
-        for i in range(n):
-            diamond += " " * abs((n/2) - i)
-            diamond += "*" * (n - abs((n-1) - 2 * i))
-            diamond += "\n"
-        return diamond
-    else:
-        return None
+    if not n%2 or n<1: return None
+        d = [" "*i+"*"*(n-2*i)+"\n" for i in range(int(n/2),0,-1)]
+        return ''.join(d) + "*"*n + "\n" + ''.join(d[::-1])
